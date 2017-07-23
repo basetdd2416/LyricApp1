@@ -10,8 +10,8 @@
   "scripts": {
     "dev": "nodemon index.js --ignore client",
     "clean": "rimraf dist",
-    "prod": "NODE_ENV=production node index.js",
-    "build": "NODE_ENV=production npm run clean && webpack -p"
+    "prod": "PORT=8080 NODE_ENV=production node index.js",
+    "build": "npm run clean && NODE_ENV=production && webpack -p"
   },
   "author": "",
   "license": "ISC",
