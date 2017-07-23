@@ -4,12 +4,20 @@ import {graphql} from 'react-apollo';
 // mutation LikeLyric($id: ID) {   likeLyric(id: $id){     id,     likes   } }
 class LyricList extends Component {
 
-    onLikeClicked(id) {
+    onLikeClicked(id,likes) {
         this
             .props
             .mutate({
                 variables: {
                     id: id
+                },
+                optimisticResponse: {
+                    __typename: "Mutation",
+                    likeLyric: {
+                        id: id,
+                        __typename: 'LyricType',
+                        likes: likes + 1
+                    }
                 }
             })
             .then(() => console.log("like done"));
@@ -24,7 +32,7 @@ class LyricList extends Component {
                     <li key={id} className="collection-item">
                         {content}
                         <div className="vote-box">
-                            <i onClick={() => this.onLikeClicked(id)} className="material-icons">thumb_up</i>
+                            <i onClick={() => this.onLikeClicked(id,likes)} className="material-icons">thumb_up</i>
                             {likes}
                         </div>
                     </li>
